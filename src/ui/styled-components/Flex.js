@@ -7,6 +7,9 @@ const StyledFlex = styled.div `
   align-content: ${props => props.alignContent || "stretch"};
   justify-content: ${props => props.justifyContent || "stretch"};
   align-self: ${props => props.alignSelf || "stretch"};
+  flex-flow:  ${props => props.flexFlow || "row nowrap" };
+  height: ${props => props.height || "initial"};
+  width: ${props => props.width || "initial"};
 `
 
 export const Flex = (props) =>{

@@ -1,21 +1,37 @@
-import { Flex } from "../index"
-import { img } from "../index"
-import { button } from "../index"
-
+import {Flex} from "../index";
+import { LoginButton } from "./components";
+import { HeaderImage} from "./components";
+import { HeaderContent} from "./components";
+import {HeaderSearch} from "./components";
+import { StyledHeader } from "./styled";
+import {ClickableBlock} from "./components";
+import {GenresButton} from "./components"
 
 export const Header = () => {
-    return(
-        <Flex justifyContent="space-between" margin="10px 5%">
-            <Flex margin="0 4%">
-                <img src = "https://cdn0.iconfinder.com/data/icons/leisure-and-entertainment-1/64/negative-search-cinema-movies-photography-512.png" height="60px"/>
-                <div>
-                    name
-                </div>
-            </Flex>
 
-            <button>
-                login
-            </button>
-        </Flex>
+    return(
+        <StyledHeader>
+            <Flex justifyContent="space-between" margin="10px 7%">
+                <ClickableBlock>
+                    <Flex margin="0 4%">
+
+                        <HeaderImage src = "https://cdn4.iconfinder.com/data/icons/cinema-2-12/512/Search_movies-512.png"/>
+                        <HeaderContent>
+                            Movie App
+                        </HeaderContent>
+                        <GenresButton>
+                            <img src="https://cdn-icons-png.flaticon.com/128/2099/2099192.png" />
+                        </GenresButton>
+                    </Flex>
+                </ClickableBlock>
+                    <Flex width='30%' >
+                        <HeaderSearch>
+                        </HeaderSearch>
+                        <LoginButton >
+                            login
+                        </LoginButton>
+                    </Flex>
+            </Flex>
+        </StyledHeader>
     )
 }

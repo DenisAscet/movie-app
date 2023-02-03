@@ -2,25 +2,25 @@ import {Grid} from "./components/Grid";
 import {useSelector, useDispatch} from "react-redux";
 import { useEffect} from "react";
 import {fetchPersonSaga} from "../../redux/sagas/fetchPersonSaga";
+import {Flex} from "../styled-components/Flex";
 
-export const PageWithMovies = () => {
+export const TableWithMovies = ({movies}) => {
 
-    const dispatch = useDispatch();
-    //
-    // useEffect(() => {
-    //     dispatch("FETCH_POPULAR_MOVIES")
-    // },[])
-    //
-    const movies = useSelector(state => state.movies.movies )
-    fetchPersonSaga()
     return(
-        <Grid>
+        <Grid movies={movies}>
             {
                 movies.map(movie => {
+                    if(movie.filmLength){
+                        var filmLength = Number(movie.filmLength.slice(0,2)*60) + Number(movie.filmLength.slice(3))
+
+                    }
                     if (movie.posterUrlPreview){
                         return(
-                            <div>
+                            <div key={movie.filmId}>
                                 <img src={movie.posterUrlPreview} />
+                                    <p>{movie.nameRu}</p>
+                                    <h4>Длительность {filmLength} мин </h4>
+
                             </div>
                         )
                     }
