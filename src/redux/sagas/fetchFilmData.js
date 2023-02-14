@@ -1,19 +1,20 @@
-import { put, takeEvery, call, spawn} from "@redux-saga/core/effects";
+import {put, takeEvery, call, spawn, select} from "@redux-saga/core/effects";
 import { fetchMovieData } from "../slice/slice";
 import {useSelector} from "react-redux";
 
-export async function fetchFilmData (){
+export const fetchFilmData  = async data => {
 
-    const filmID = "600"
+    const filmID = data
     const _APIKey = "06e2167f-3fd2-4dd3-8779-305019796747";
 
     const _url1 = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${filmID}/box_office`;
-    const _url2 = `https://kinopoiskapiunofficial.tech/api/v2.2/films/500/awards`;
+    const _url2 = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${filmID}/awards`;
     const _url3 = `https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${filmID}`;
-    const _url4 = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${filmID}`
+    const _url4 = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${filmID}`;
 
     const resp = {}
 
+    //fetch budget
     await fetch(_url1,{
             headers:{
                 "method": "GET",
@@ -26,6 +27,7 @@ export async function fetchFilmData (){
         .then(data => data.json())
         .then(data => resp.budget = data.items )
 
+    //fetch stuff
     await fetch(_url2,{
             headers:{
                 "method": "GET",
@@ -38,7 +40,7 @@ export async function fetchFilmData (){
         .then(data => data.json())
         .then(data => resp.awards = data.items)
 
-
+    // fetch stuff
     await fetch(_url3,{
             headers:{
                 "method": "GET",
@@ -54,13 +56,15 @@ export async function fetchFilmData (){
             for (let i = 0 ; i < data.length; i++) {
                 stuff[i] = {
                     "nameRu": data[i].nameRu,
-                    "professionText": data[i].professionText
+                    "professionText": data[i].professionText,
+                    "personId": data[i].staffId
                 }
             }
             return stuff
         })
         .then(stuff => resp.stuff = stuff )
 
+    // fetch main film data
     await fetch(_url4,{
             headers:{
                 "method": "GET",
@@ -77,7 +81,8 @@ export async function fetchFilmData (){
 }
 
 function* loadData () {
-    const resp = yield call(fetchFilmData)
+    const selectedItem = yield select(store => store.movies.selectedMovie)
+    const resp = yield fetchFilmData(selectedItem)
     yield put(fetchMovieData(resp))
 }
 

@@ -4,7 +4,7 @@ const Styled = styled.div`
   
     display: grid;
     grid-template-columns: repeat(3, 30%);
-    grid-template-rows: repeat(props.lenth, 10%);
+    grid-template-rows: 10% repeat(props.lenth, 10%);
   margin: 0 0 0 15%;
   div{
     margin-bottom: 80px;
@@ -25,6 +25,11 @@ const Styled = styled.div`
     margin-left: 6%;
     margin-top: 2%
 
+  }
+  h1{
+    font-size: 300%;
+    color: #c2bfcb;
+    padding-bottom: 10%;
   }
 `
 

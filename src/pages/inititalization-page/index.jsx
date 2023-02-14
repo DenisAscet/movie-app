@@ -9,24 +9,17 @@ import {HeaderBlock} from "./components/HeaderBlock";
 export const InititalizationPage = () => {
     return(
         <InitializationPage>
-            <HeaderBlock>
                 <Flex>
-                    <img src="https://cdn4.iconfinder.com/data/icons/cinema-2-12/512/Search_movies-512.png"/>
-                    <div>Movie App</div>
-                </Flex>
-            </HeaderBlock>
-            <Flex flexDirection="column" margin="0 25%">
-
-                Login
-                <LoginInput alt="zalupa"/>
-
-                Password
-                <PasswordInput/>
-
-                <SubmitButton>
                     Login
-                </SubmitButton>
-            </Flex>
+                    <LoginInput alt="zalupa"/>
+
+                    Password
+                    <PasswordInput/>
+
+                    <SubmitButton>
+                        Login
+                    </SubmitButton>
+                </Flex>
         </InitializationPage>
     )
 }

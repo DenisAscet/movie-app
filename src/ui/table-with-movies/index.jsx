@@ -1,27 +1,29 @@
 import {Grid} from "./components/Grid";
-import {useSelector, useDispatch} from "react-redux";
-import { useEffect} from "react";
-import {fetchPersonSaga} from "../../redux/sagas/fetchPersonSaga";
-import {Flex} from "../styled-components/Flex";
+import {setSelectedMovie} from "../../redux/slice/slice";
+import {useDispatch, useSelector} from "react-redux";
+import { Link } from "react-router-dom";
 
-export const TableWithMovies = ({movies}) => {
+export const TableWithMovies = ( props ) => {
+
+    const movies = props.movies;
+    const dispatch = useDispatch()
 
     return(
-        <Grid movies={movies}>
+        <Grid movies={ movies }>
+            <h1>{props.blockName}</h1>
+            <div></div>
+            <div></div>
             {
-                movies.map(movie => {
-                    if(movie.filmLength){
-                        var filmLength = Number(movie.filmLength.slice(0,2)*60) + Number(movie.filmLength.slice(3))
-
-                    }
-                    if (movie.posterUrlPreview){
+                movies.map( movie => {
+                    if ( movie.posterUrlPreview ){
                         return(
-                            <div key={movie.filmId}>
-                                <img src={movie.posterUrlPreview} />
-                                    <p>{movie.nameRu}</p>
-                                    <h4>Длительность {filmLength} мин </h4>
-
-                            </div>
+                            <Link to={`/movies/${movie.filmId}`}
+                                  key={ movie.filmId }>
+                                <div >
+                                    <img src={ movie.posterUrlPreview } />
+                                        <p>{ movie.nameRu }</p>
+                                </div>
+                            </Link>
                         )
                     }
                 })

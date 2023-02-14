@@ -9,8 +9,6 @@ const filmographySaga = async arr => {
 
     const resp = []
 
-    console.log(arr)
-
     for (let i = 0 ; i < arr.length - 1; i++ ){
 
         await fetch(_fetchFilmographyUrl + arr[i],{
@@ -21,16 +19,19 @@ const filmographySaga = async arr => {
                 }
             })
             .then(data => data.json())
+            .then(data => {
+                data.filmId = data.kinopoiskId
+                return data
+            })
             .then(data => resp.push(data))
     }
-    console.log(resp)
     return resp
 }
 
-const fetchPersonSaga = async () => {
+const fetchPersonSaga = async personId => {
 
     const _APIKey = "06e2167f-3fd2-4dd3-8779-305019796747";
-    const _fetchPersonUrl = `https://kinopoiskapiunofficial.tech/api/v1/staff/1`;
+    const _fetchPersonUrl = `https://kinopoiskapiunofficial.tech/api/v1/staff/${personId}`;
     let person = {};
     const filmography = []
 
@@ -47,9 +48,12 @@ const fetchPersonSaga = async () => {
             person = data
             return data
         })
-        .then(person => person.films.map(film => {filmography.push(film.filmId)}))
+        .then(person => person.films.map(film => {
+            if(filmography.indexOf(film.filmId)<=0){
+                filmography.push(film.filmId)
+            }
+        }))
 
-    console.log(person)
     return [
         person,
         filmography
@@ -57,11 +61,14 @@ const fetchPersonSaga = async () => {
 }
 
 function* loadFilmography() {
-    const arr = yield call(fetchPersonSaga)
+
+    const selectedPerson = yield select(store => store.movies.selectedPerson)
+
+    const arr = yield fetchPersonSaga(selectedPerson)
 
     yield put(setFilmographyId(arr[1]))
 
-    const films = yield call(filmographySaga(arr[1]))
+    const films = yield filmographySaga(arr[1])
 
     yield put(fetchPersonData(arr[0]))
     yield put(fetchFilmography(films))
@@ -70,6 +77,7 @@ function* loadFilmography() {
 function* filmographyWorker(){
     yield spawn(loadFilmography)
 }
+
 export function* filmographyWatcher(){
     yield takeEvery("FETCH_PERSON",filmographyWorker)
 }

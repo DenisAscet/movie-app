@@ -1,4 +1,5 @@
 import { createSlice} from "@reduxjs/toolkit";
+import {select} from "@redux-saga/core/effects";
 
 export const MovieSlice = createSlice({
     name: "MovieSlice",
@@ -776,9 +777,9 @@ export const MovieSlice = createSlice({
             ]
         },
         personData:{},
-        selectedPerson: 13,
+        // selectedPerson: 13,
         filmography:[],
-        filmographyId:[]
+        filmographyId:[],
     },
 
     reducers: {
@@ -803,7 +804,12 @@ export const MovieSlice = createSlice({
         setFilmographyId (state, action) {
             state.filmographyId = action.payload
         },
-
+        setSelectedMovie (state, action) {
+            state.selectedMovie = action.payload
+        },
+        setSelectedGenre (state, action) {
+            state.selectedGenre = action.payload
+        },
 
     }
 
@@ -817,5 +823,7 @@ export const {
     fetchFilmography,
     setFilmographyId,
     setSelectedPerson,
+    setSelectedGenre,
+    setSelectedMovie,
 
 } = MovieSlice.actions

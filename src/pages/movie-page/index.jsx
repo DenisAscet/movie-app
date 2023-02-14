@@ -1,20 +1,19 @@
 import { useEffect} from "react";
 import { useSelector, useDispatch} from "react-redux";
 import { TableWithMovies } from "../../ui";
-import {fetchMovies} from "../../redux/sagas/actionCraetors";
-import {fetch100Films} from "../../redux/sagas/MoviesSaga";
+import {fetchMoviesByGenre} from "../../redux/sagas/actionCraetors";
 
 export const HomePage = () => {
 
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        dispatch(fetchMovies())
+        // dispatch(fetchMoviesByGenre())
     },[]);
 
     const movies = useSelector(store => store.movies.movies);
 
     return(
-        <TableWithMovies movies={movies}/>
+        <TableWithMovies movies={movies} />
     )
 }

@@ -4,7 +4,8 @@ const Styled = styled.button`
     width: 60px;
     height: 30px;
     border: none;
-    margin-top: 1.5%;
+    margin-top: 20%;
+  cursor: pointer;
     img{
         filter:invert();
         width: 50%;

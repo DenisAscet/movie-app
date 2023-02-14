@@ -1,11 +1,13 @@
 import {Flex} from "../index";
-import { LoginButton } from "./components";
-import { HeaderImage} from "./components";
-import { HeaderContent} from "./components";
-import {HeaderSearch} from "./components";
+import {Link} from "react-router-dom";
+import {
+    LoginButton,
+    HeaderImage,
+    HeaderContent,
+    HeaderSearch,
+    ClickableBlock,
+    GenresButton } from "./components";
 import { StyledHeader } from "./styled";
-import {ClickableBlock} from "./components";
-import {GenresButton} from "./components"
 
 export const Header = () => {
 
@@ -16,20 +18,26 @@ export const Header = () => {
                     <Flex margin="0 4%">
 
                         <HeaderImage src = "https://cdn4.iconfinder.com/data/icons/cinema-2-12/512/Search_movies-512.png"/>
-                        <HeaderContent>
-                            Movie App
-                        </HeaderContent>
-                        <GenresButton>
-                            <img src="https://cdn-icons-png.flaticon.com/128/2099/2099192.png" />
-                        </GenresButton>
+                        <Link to="">
+                            <HeaderContent>
+                                Movie App
+                            </HeaderContent>
+                        </Link>
+                        <Link to="/genres">
+                            <GenresButton>
+                                <img src="https://cdn-icons-png.flaticon.com/128/2099/2099192.png" />
+                            </GenresButton>
+                        </Link>
                     </Flex>
                 </ClickableBlock>
                     <Flex width='30%' >
                         <HeaderSearch>
                         </HeaderSearch>
-                        <LoginButton >
-                            login
-                        </LoginButton>
+                        <Link to='/login'>
+                            <LoginButton >
+                                login
+                            </LoginButton>
+                        </Link>
                     </Flex>
             </Flex>
         </StyledHeader>

@@ -3,6 +3,7 @@ import { App } from "./core";
 import {createGlobalStyle} from "styled-components";
 import {Provider} from "react-redux";
 import {configuredStore} from "./redux";
+import { BrowserRouter } from "react-router-dom";
 
 const store = configuredStore()
 
@@ -19,9 +20,11 @@ const container  = document.getElementById('root')
 const root = createRoot(container);
 
 root.render(
-    <Provider store={store}>
-        <GlobalStyle />
-        <App />
-    </Provider>
+    <BrowserRouter>
+        <Provider store={store}>
+            <GlobalStyle />
+            <App />
+        </Provider>
+    </BrowserRouter>
 );
 

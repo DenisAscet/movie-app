@@ -10,6 +10,18 @@ width: 40%;
   div{
 
   } 
+  img{
+    height: 30px;
+    margin: 0 10px;
+    
+  }
+  a{
+    color:#a7a7a7;
+    text-decoration: none;
+  }
+  a :hover{
+    color: #c3c9d6;
+  }
 `
 
 export const MiddleBlock = props => {

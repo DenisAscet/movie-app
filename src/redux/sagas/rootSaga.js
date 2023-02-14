@@ -3,7 +3,6 @@ import {dataWatcher} from "./fetchFilmData";
 import {MoviesByGenresWatcher} from "./fetchFilmsByGenre";
 import {genresWatcher} from "./fetchGenresSaga";
 import {MovieWatcher} from "./MoviesSaga";
-import {fetchPersonWatcher} from "./fetchPersonSaga";
 import {filmographyWatcher} from "./filmographySaga";
 
 export const rootSaga = function* (){
@@ -12,7 +11,6 @@ export const rootSaga = function* (){
             yield fork(MoviesByGenresWatcher),
             yield fork(genresWatcher),
             yield fork(MovieWatcher),
-            yield fork(fetchPersonWatcher),
             yield fork(filmographyWatcher),
         ])
 }
